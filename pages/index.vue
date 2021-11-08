@@ -1,7 +1,6 @@
 <template>
 <div>
-<input-form @sendToData="updateList($event)"/>
-           
+<input-form @sendToData="updateList($event)"/>         
 <flashcard v-for="(item,index) in contentOfCards" :key="index" :item="item"/>          
     
 </div>
@@ -11,9 +10,10 @@
 
 <script>
 
-import Flashcard from '../components/Flashcard.vue';
+
 import InputForm from '../components/InputForm.vue';
 const localKey = 'a';
+
 export default {
 
 components:{
@@ -21,37 +21,33 @@ Flashcard,
 InputForm
 },
 data(){
-  return{
+  return{    
+    contentOfCards:[{question:'a',answer:'b',done:null},{question:'a',answer:'b',done:null}]
     
-    contentOfCards:[{question:"",answer:"",done:null}]
-    
-   
-  }
+  };
   
 },
 methods:{
  updateList(e){
 
     if (!e.ques || !e.ans) {
-                    return;
-                }
+        return; 
+    }
     
   
+
   this.contentOfCards.push({
-                    question: e.ques,
-                    answer: e.ans,
-                    done: false                   
-                });
-               
- },
+        question: e.ques,
+        answer: e.ans,
+        done: false                   
+    });
+    
+    
+ }
  
-        
-            changeItemStatus(index) {
-                const item = this.contentOfCards[index];
-                this.contentOfCards[index].done = !item.done;
-            }
-       
-}, mounted() {
+      }, 
+      
+      mounted() {
             const items = localStorage.getItem(localKey) || '[]';
             this.contentOfCards = JSON.parse(items);
         },
@@ -63,6 +59,10 @@ methods:{
                 }
             }
         }
+
+
+
+      
 
     }
 
